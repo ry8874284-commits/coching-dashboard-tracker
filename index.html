@@ -16,11 +16,9 @@
         h2 {
             text-align: center;
             color: #1a73e8;
-            margin-top: 10px;
-            margin-bottom: 15px;
+            margin: 10px 0 15px 0;
         }
 
-        /* Daily Tracker Section */
         .tracker-container {
             background: white;
             padding: 15px;
@@ -35,9 +33,6 @@
             font-weight: bold;
             color: #333;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .subjects-grid {
@@ -86,7 +81,6 @@
             min-height: 20px;
         }
 
-        /* Search Bar */
         #searchBar {
             width: 100%;
             padding: 12px;
@@ -102,7 +96,6 @@
             border-color: #1a73e8;
         }
 
-        /* Student Cards */
         .student-card {
             background: white;
             margin-bottom: 12px;
@@ -144,8 +137,6 @@
             font-size: 14px;
             font-weight: bold;
             color: white;
-            display: flex;
-            align-items: center;
         }
 
         .call-btn {
@@ -267,7 +258,7 @@
                     href="https://wa.me" target="_blank">💬</a></div>
         </div>
     </div>
-
+    <!-- SCRIPT SECTION (AB 100% COMPLETE CLOSE HAI) -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Live Date generate karna bina zero ke (e.g., 1/9/2026)
@@ -279,7 +270,7 @@
 
             document.getElementById('todayDate').innerText = formattedDate;
 
-            // Aapki asli Google Sheet ka sahi formatted CSV link
+            // Connected Sheet URL with your live ID
             let sheetURL = "https://docs.google.com/spreadsheets/d/1bkRybAYGv81H1RMOuqzrO87OaD92_wGcKqQ-ax4XHrM/edit?gid=1366142517#gid=1366142517";
 
             fetch(sheetURL)
@@ -295,7 +286,6 @@
                         let sheetDate = row[0].replace(/"/g, '').trim();
 
                         if (sheetDate === formattedDate) {
-                            // Column Indices: 1 = Math, 2 = English, 3 = EVS
                             document.getElementById('mathTopic').innerText = row[1] ? row[1].replace(/"/g, '').trim() : "Blank";
                             document.getElementById('engTopic').innerText = row[2] ? row[2].replace(/"/g, '').trim() : "Blank";
                             document.getElementById('evsTopic').innerText = row[3] ? row[3].replace(/"/g, '').trim() : "Blank";
@@ -316,17 +306,16 @@
                 });
         });
 
-        // Student Search Function
         function filterStudents() {
             let input = document.getElementById('searchBar').value.toLowerCase();
             let cards = document.getElementsByClassName('student-card');
             for (let i = 0; i < cards.length; i++) {
                 let name = cards[i].getAttribute('data-name');
-                if (name.includes(input)) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
+                if (name.includes(input)) { cards[i].style.display = ""; }
+                else { cards[i].style.display = "none"; }
             }
         }
     </script>
+</body>
+
+</html>
