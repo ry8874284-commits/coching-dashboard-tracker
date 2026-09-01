@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Dashboard & Daily Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 15px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a73e8;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Daily Tracker Section */
+        .tracker-container {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #1a73e8;
+        }
+
+        .live-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .subject-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .sub-title {
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .math-title {
+            color: #d93025;
+        }
+
+        .eng-title {
+            color: #1a73e8;
+        }
+
+        .evs-title {
+            color: #1e8e3e;
+        }
+
+        .topic-text {
+            font-size: 15px;
+            color: #555;
+            font-weight: 500;
+            min-height: 20px;
+        }
+
+        /* Search Bar */
+        #searchBar {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        #searchBar:focus {
+            border-color: #1a73e8;
+        }
+
+        /* Student Cards */
+        .student-card {
+            background: white;
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .father {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .call-btn {
+            background-color: #1a73e8;
+        }
+
+        .ws-btn {
+            background-color: #25D366;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. LIVE TRACKER SECTION -->
+    <div class="tracker-container">
+        <div class="live-date">📅 Aaj Ka Syllabus (<span id="todayDate">Loading...</span>)</div>
+        <div class="subjects-grid">
+            <div class="subject-box">
+                <div class="sub-title math-title">🔢 Math</div>
+                <div class="topic-text" id="mathTopic">Loading...</div>
+            </div>
+            <div class="subject-box">
+                <div class="sub-title eng-title">🔤 English</div>
+                <div class="topic-text" id="engTopic">Loading...</div>
+            </div>
+            <div class="subject-box">
+                <div class="sub-title evs-title">🌱 EVS</div>
+                <div class="topic-text" id="evsTopic">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. STUDENT LIST SECTION -->
+    <h2>🎯 Mentorship Student Dashboard</h2>
+    <input type="text" id="searchBar" onkeyup="filterStudents()" placeholder="🔍 Student ka naam search karein...">
+
+    <div id="studentList">
+        <div class="student-card" data-name="ayush yadav">
+            <div class="info"><span class="name">Ayush Yadav</span><span class="father">Papa: Mr. Vikash Yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+918090324272">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="harsh yadav">
+            <div class="info"><span class="name">Harsh Yadav</span><span class="father">Papa: Mr. Sahablal Yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919580744646">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="disha yadav">
+            <div class="info"><span class="name">Disha Yadav</span><span class="father">Papa: Mr. Sahablal Yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919555038017">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="peehoo yadav">
+            <div class="info"><span class="name">Peehoo Yadav</span><span class="father">Papa: Mr. Dharmendra
+                    Yadav</span></div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919506345391">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="saurya yadav">
+            <div class="info"><span class="name">Saurya Yadav</span><span class="father">Papa: Mr. Vikash Yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+918090324272">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="aadarsh yadav">
+            <div class="info"><span class="name">Aadarsh Yadav</span><span class="father">Papa: Mr. Sahablal
+                    Yadav</span></div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919555038017">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="shiv raj yadav">
+            <div class="info"><span class="name">SHIV RAJ YADAV</span><span class="father">Papa: Mr. Umesh yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919336131728">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="ayush yadav">
+            <div class="info"><span class="name">ayush yadav</span><span class="father">Papa: Mr. Vivek yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919984711268">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="arpit yadav">
+            <div class="info"><span class="name">arpit yadav</span><span class="father">Papa: Mr. Vivek yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919984711268">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="anurag yadav">
+            <div class="info"><span class="name">Anurag yadav</span><span class="father">Papa: Mr. Vivek yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919984711268">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="rishabh pal">
+            <div class="info"><span class="name">rishabh pal</span><span class="father">Papa: Mr pankaj pal</span></div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919628717080">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="ashish yadav">
+            <div class="info"><span class="name">ashish yadav</span><span class="father">Papa: Mr Ashok yadav</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+917081383824">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="ritwik pal">
+            <div class="info"><span class="name">ritwik pal</span><span class="father">Papa: -</span></div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919628717080">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+        <div class="student-card" data-name="hemant kumar">
+            <div class="info"><span class="name">hemant kumar</span><span class="father">Papa: Mr chnadrabhusan</span>
+            </div>
+            <div class="btn-group"><a class="btn call-btn" href="tel:+919838214307">📞 Call</a><a class="btn ws-btn"
+                    href="https://wa.me" target="_blank">💬</a></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Live Date generate karna bina zero ke (e.g., 1/9/2026)
+            let today = new Date();
+            let day = today.getDate();
+            let month = today.getMonth() + 1;
+            let year = today.getFullYear();
+            let formattedDate = day + '/' + month + '/' + year;
+
+            document.getElementById('todayDate').innerText = formattedDate;
+
+            // Aapki asli Google Sheet ka sahi formatted CSV link
+            let sheetURL = "https://docs.google.com/spreadsheets/d/1bkRybAYGv81H1RMOuqzrO87OaD92_wGcKqQ-ax4XHrM/edit?usp=sharing";
+
+            fetch(sheetURL)
+                .then(response => response.text())
+                .then(data => {
+                    let lines = data.split('\n');
+                    let found = false;
+
+                    for (let i = 1; i < lines.length; i++) {
+                        let row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                        if (row.length < 4) continue;
+
+                        let sheetDate = row[0].replace(/"/g, '').trim();
+
+                        if (sheetDate === formattedDate) {
+                            // Column Indices: 1 = Math, 2 = English, 3 = EVS
+                            document.getElementById('mathTopic').innerText = row[1] ? row[1].replace(/"/g, '').trim() : "Blank";
+                            document.getElementById('engTopic').innerText = row[2] ? row[2].replace(/"/g, '').trim() : "Blank";
+                            document.getElementById('evsTopic').innerText = row[3] ? row[3].replace(/"/g, '').trim() : "Blank";
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        document.getElementById('mathTopic').innerText = "Not Updated Yet";
+                        document.getElementById('engTopic').innerText = "Not Updated Yet";
+                        document.getElementById('evsTopic').innerText = "Not Updated Yet";
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('mathTopic').innerText = "Error loading";
+                    document.getElementById('engTopic').innerText = "Error loading";
+                    document.getElementById('evsTopic').innerText = "Error loading";
+                });
+        });
+
+        // Student Search Function
+        function filterStudents() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.getElementsByClassName('student-card');
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
